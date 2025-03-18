@@ -37,10 +37,6 @@ app.post('/upload', upload.single('avatar'), async (req, res) => {
       ].filter(Boolean).join(', ')}`);
     }
 
-    // 读取字体并转为 Base64
-    const fontData = fs.readFileSync(fontPath);
-    const fontBase64 = fontData.toString('base64');
-
     const avatar = await sharp(avatarBuffer).resize(280, 280).toBuffer();
     const baseImage = await sharp(baseImagePath).toBuffer();
     const coverImage = await sharp(coverImagePath).toBuffer();
@@ -57,22 +53,21 @@ app.post('/upload', upload.single('avatar'), async (req, res) => {
       ])
       .toBuffer();
 
+    // 添加 title
     const titledImage = await sharp(avataredImage)
       .composite([
         {
-          input: await sharp(
-            Buffer.from(
-              `<svg width="600" height="80">
-                <style>
-                  @font-face {
-                    font-family: "LXGWWenKaiMonoGB";
-                    src: url("data:font/truetype;charset=utf-8;base64,${fontBase64}");
-                  }
-                </style>
-                <text x="10" y="50" font-size="40" fill="black" font-family="LXGWWenKaiMonoGB">${title}</text>
-              </svg>`
-            )
-          )
+          input: await sharp({
+            text: {
+              text: title,
+              font: 'LXGWWenKaiMonoGB-Regular',
+              fontfile: fontPath,
+              width: 600,
+              height: 80,
+              rgba: true,
+              size: 40,
+            },
+          })
             .rotate(-20, { background: { r: 0, g: 0, b: 0, alpha: 0 } })
             .toBuffer(),
           top: 325,
@@ -81,22 +76,21 @@ app.post('/upload', upload.single('avatar'), async (req, res) => {
       ])
       .toBuffer();
 
+    // 添加 nickname
     const namedImage = await sharp(titledImage)
       .composite([
         {
-          input: await sharp(
-            Buffer.from(
-              `<svg width="600" height="80">
-                <style>
-                  @font-face {
-                    font-family: "LXGWWenKaiMonoGB";
-                    src: url("data:font/truetype;charset=utf-8;base64,${fontBase64}");
-                  }
-                </style>
-                <text x="10" y="50" font-size="40" fill="black" font-family="LXGWWenKaiMonoGB">${nickname}</text>
-              </svg>`
-            )
-          )
+          input: await sharp({
+            text: {
+              text: nickname,
+              font: 'LXGWWenKaiMonoGB-Regular',
+              fontfile: fontPath,
+              width: 600,
+              height: 80,
+              rgba: true,
+              size: 40,
+            },
+          })
             .rotate(-20, { background: { r: 0, g: 0, b: 0, alpha: 0 } })
             .toBuffer(),
           top: 525,
