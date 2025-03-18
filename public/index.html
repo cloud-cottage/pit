@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自动 P 图工具</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>自动 P 图工具</h1>
+        <form id="uploadForm">
+            <label for="avatar">上传头像（200x200px 以内）：</label>
+            <input type="file" id="avatar" name="avatar" accept="image/*" required>
+            <br>
+            <label for="nickname">输入昵称：</label>
+            <input type="text" id="nickname" name="nickname" placeholder="请输入昵称" required>
+            <br>
+            <button type="submit">生成图片</button>
+        </form>
+        <div id="result">
+            <h2>生成结果：</h2>
+            <img id="outputImage" src="" alt="生成图片" style="display:none;">
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
