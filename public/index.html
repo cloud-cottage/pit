@@ -7,23 +7,30 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    
     <div class="container">
-        <h1><b>BNB Card</b> Generator</h1>
-        <form id="uploadForm">
-
-            <label for="nickname">Step1: 输入昵称（长度不要超过 12 字符）</label>
-            <input type="text" id="nickname" name="nickname" placeholder="请输入昵称" required>
-            <br>
-            <label for="avatar">Step2: 上传头像（200x200px 以内）：</label>
-            <input type="file" id="avatar" name="avatar" accept="image/*" required>
-            <br>
-            <button type="submit">Step3: 生成图片</button>
-        </form>
-        <div id="result">
-            <h2>生成结果：</h2>
-            <img id="outputImage" src="" alt="生成图片" style="display:none;">
-        </div>
+        <h1><b>BNB Card</b> 自助生成器</h1>
+        <div class="container"> Coded by 猫王: <a href='https://x.com/0xCatKing' target="_blank">https://x.com/0xCatKing</a></div>
+       <!-- 动态显示图片的区域 -->
+       <div id="preview">
+        <img id="previewImage" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="预览图片">
     </div>
-    <script src="script.js"></script>
+    <!-- 输入昵称和上传头像的表单 -->
+    <form id="uploadForm">
+        <label for="title">Step1 > 输入头衔：</label>
+        <input type="text" id="title" name="title" placeholder="请输入头衔" required>
+        <br>
+        <label for="nickname">Step2 > 输入昵称：</label>
+        <input type="text" id="nickname" name="nickname" placeholder="请输入昵称" required>
+        <br>
+        <label for="avatar">Step3 > 上传头像：</label>
+        <input type="file" id="avatar" name="avatar" accept="image/*" required>
+        <br>
+        <button type="submit">生成图片</button>
+    </form>
+    <!-- 下载图片的按钮 -->
+    <button id="downloadButton" disabled>下载图片</button>
+</div>
+<script src="script.js"></script>
 </body>
 </html>

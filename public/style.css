@@ -17,6 +17,16 @@ body {
     text-align: center;
 }
 
+#preview {
+    margin-bottom: 20px;
+}
+
+#previewImage {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #ccc;
+}
+
 form {
     margin-bottom: 20px;
 }
@@ -44,8 +54,11 @@ button:hover {
     background-color: #218838;
 }
 
-#outputImage {
-    max-width: 100%;
-    height: auto;
-    margin-top: 20px;
+#downloadButton {
+    background-color: #007bff;
+}
+
+#downloadButton:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
 }
