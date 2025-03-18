@@ -1,24 +1,19 @@
 {
-  
-    "version": 2,
-    "builds": [
-      {
-        "src": "server/server.js",
-        "use": "@vercel/node"
-      }
-    ],
-    "routes": [
-      {
-        "src": "/upload",
-        "dest": "server/server.js"
-      },
-      {
-        "src": "/(.*)",
-        "dest": "public/$1"
-      }
-    ],
-    "scripts": {
-      "start": "node server/server.js",
-      "postinstall": "npm rebuild sharp"
+  "version": 2,
+  "builds": [
+    {
+      "src": "server/server.js",
+      "use": "@vercel/node"
     }
-  }
+  ],
+  "routes": [
+    {
+      "src": "/upload",
+      "dest": "server/server.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "public/$1"
+    }
+  ]
+}

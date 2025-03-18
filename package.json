@@ -5,10 +5,11 @@
     "main": "server/server.js",
     "scripts": {
         "start": "node server/server.js",
+        "postinstall": "npm rebuild sharp",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "keywords": [],
-    "author": "Your Name",
+    "author": "Kevin Ji",
     "license": "MIT",
     "dependencies": {
         "express": "^4.18.2",
