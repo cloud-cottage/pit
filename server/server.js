@@ -83,8 +83,8 @@ app.post('/upload', upload.single('avatar'), async (req, res) => {
           input: await sharp(titleImage)
             .rotate(-20, { background: { r: 0, g: 0, b: 0, alpha: 0 } })
             .toBuffer(),
-          top: 475,
-          left: 525,
+          top: 485,
+          left: 535,
         },
       ])
       .toBuffer();
@@ -109,8 +109,8 @@ app.post('/upload', upload.single('avatar'), async (req, res) => {
           input: await sharp(nicknameImage)
             .rotate(-20, { background: { r: 0, g: 0, b: 0, alpha: 0 } })
             .toBuffer(),
-          top: 675,
-          left: 625,
+          top: 685,
+          left: 635,
         },
       ])
       .toBuffer();
