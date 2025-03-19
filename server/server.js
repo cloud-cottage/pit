@@ -44,7 +44,7 @@ app.post('/upload', upload.single('avatar'), async (req, res) => {
     }
 
     console.log('Processing avatar...');
-    const avatar = await sharp(avatarBuffer).resize(280, 280).toBuffer();
+    const avatar = await sharp(avatarBuffer).resize(150, 150).toBuffer();
     console.log('Loading base image...');
     const baseImage = await sharp(baseImagePath).toBuffer();
     console.log('Loading cover image...');
@@ -57,8 +57,8 @@ app.post('/upload', upload.single('avatar'), async (req, res) => {
           input: await sharp(avatar)
             .rotate(-19, { background: { r: 0, g: 0, b: 0, alpha: 0 } })
             .toBuffer(),
-          top: 530,
-          left: 135,
+          top: 150,
+          left: 50,
         },
       ])
       .toBuffer();
@@ -69,12 +69,12 @@ app.post('/upload', upload.single('avatar'), async (req, res) => {
         text: title,
         font: 'LXGWWenKaiMonoGB-Regular',
         fontfile: fontPath,
-        width: 600,  // 仅保留 width，移除 height
-        dpi: 300,   // 使用 dpi 控制文字大小
+        width: 300,
+        dpi: 300,
         rgba: true,
       },
     })
-      .png()  // 确保输出 PNG 格式
+      .png()
       .toBuffer();
 
     const titledImage = await sharp(avataredImage)
@@ -83,8 +83,9 @@ app.post('/upload', upload.single('avatar'), async (req, res) => {
           input: await sharp(titleImage)
             .rotate(-20, { background: { r: 0, g: 0, b: 0, alpha: 0 } })
             .toBuffer(),
-          top: 485,
-          left: 535,
+          gravity: 'northwest', // 固定左上角对齐
+          top: 100,  // 锚点位置
+          left: 180,
         },
       ])
       .toBuffer();
@@ -95,12 +96,12 @@ app.post('/upload', upload.single('avatar'), async (req, res) => {
         text: nickname,
         font: 'LXGWWenKaiMonoGB-Regular',
         fontfile: fontPath,
-        width: 600,  // 仅保留 width，移除 height
-        dpi: 300,   // 使用 dpi 控制文字大小
+        width: 300,
+        dpi: 300,
         rgba: true,
       },
     })
-      .png()  // 确保输出 PNG 格式
+      .png()
       .toBuffer();
 
     const namedImage = await sharp(titledImage)
@@ -109,15 +110,17 @@ app.post('/upload', upload.single('avatar'), async (req, res) => {
           input: await sharp(nicknameImage)
             .rotate(-20, { background: { r: 0, g: 0, b: 0, alpha: 0 } })
             .toBuffer(),
-          top: 685,
-          left: 635,
+          gravity: 'northwest', // 固定左上角对齐
+          top: 200,  // 锚点位置
+          left: 200,
         },
       ])
       .toBuffer();
 
     console.log('Adding cover image...');
     const finalImage = await sharp(namedImage)
-      .composite([{ input: coverImage, top: 0, left: 5 }])
+      .composite([{ input: coverImage, top: 0, left: 0 }])
+      .resize(500, 500, { fit: 'contain', background: { r: 255, g: 255, b: 255, alpha: 1 } })
       .toBuffer();
 
     console.log('Sending response...');
