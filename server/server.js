@@ -48,7 +48,9 @@ app.post('/upload', upload.single('avatar'), async (req, res) => {
     console.log('Loading base image...');
     const baseImage = await sharp(baseImagePath).toBuffer();
     console.log('Loading cover image...');
-    const coverImage = await sharp(coverImagePath).toBuffer();
+    const coverImage = await sharp(coverImagePath)
+      .resize(500, 500, { fit: 'inside', withoutEnlargement: true }) // 调整 coverImage 大小
+      .toBuffer();
 
     console.log('Compositing avatar...');
     const avataredImage = await sharp(baseImage)
@@ -83,8 +85,8 @@ app.post('/upload', upload.single('avatar'), async (req, res) => {
           input: await sharp(titleImage)
             .rotate(-20, { background: { r: 0, g: 0, b: 0, alpha: 0 } })
             .toBuffer(),
-          gravity: 'northwest', // 固定左上角对齐
-          top: 100,  // 锚点位置
+          gravity: 'northwest',
+          top: 100,
           left: 180,
         },
       ])
@@ -110,8 +112,8 @@ app.post('/upload', upload.single('avatar'), async (req, res) => {
           input: await sharp(nicknameImage)
             .rotate(-20, { background: { r: 0, g: 0, b: 0, alpha: 0 } })
             .toBuffer(),
-          gravity: 'northwest', // 固定左上角对齐
-          top: 200,  // 锚点位置
+          gravity: 'northwest',
+          top: 200,
           left: 200,
         },
       ])
