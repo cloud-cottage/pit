@@ -16,30 +16,28 @@ document.getElementById('uploadForm').addEventListener('submit', async function 
             body: formData,
         });
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+        if (response.ok) {
+            const blob = await response.blob();
+            const imageUrl = URL.createObjectURL(blob);
+
+            // 更新预览图片
+            const previewImage = document.getElementById('previewImage');
+            previewImage.src = imageUrl;
+
+            // 启用下载按钮
+            const downloadButton = document.getElementById('downloadButton');
+            downloadButton.disabled = false;
+            downloadButton.onclick = () => {
+                const link = document.createElement('a');
+                link.href = imageUrl;
+                link.download = 'generated_image.jpg';
+                link.click();
+            };
+        } else {
+            alert('生成图片失败，请重试！');
         }
-
-        const blob = await response.blob();
-        const imageUrl = URL.createObjectURL(blob);
-
-        // 更新预览图片
-        const previewImage = document.getElementById('previewImage');
-        previewImage.src = imageUrl;
-
-        // 启用下载按钮
-        const downloadButton = document.getElementById('downloadButton');
-        downloadButton.disabled = false;
-        downloadButton.onclick = () => {
-            const link = document.createElement('a');
-            link.href = imageUrl;
-            link.download = 'bnb_card.jpg'; // 优化文件名
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        };
     } catch (error) {
         console.error('Error:', error);
-        alert(`生成图片失败：${error.message}`);
+        alert('发生错误，请检查控制台！');
     }
 });
