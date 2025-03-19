@@ -69,13 +69,12 @@ app.post('/upload', upload.single('avatar'), async (req, res) => {
         text: title,
         font: 'LXGWWenKaiMonoGB-Regular',
         fontfile: fontPath,
-        width: 600,
-        height: 80,
-        dpi: 300,  // 替换 size，使用 dpi 控制字体大小
+        width: 600,  // 仅保留 width，移除 height
+        dpi: 300,   // 使用 dpi 控制文字大小
         rgba: true,
       },
     })
-      .png()  // 明确输出 PNG 格式
+      .png()  // 确保输出 PNG 格式
       .toBuffer();
 
     const titledImage = await sharp(avataredImage)
@@ -96,13 +95,12 @@ app.post('/upload', upload.single('avatar'), async (req, res) => {
         text: nickname,
         font: 'LXGWWenKaiMonoGB-Regular',
         fontfile: fontPath,
-        width: 600,
-        height: 80,
-        dpi: 300,  // 替换 size
+        width: 600,  // 仅保留 width，移除 height
+        dpi: 300,   // 使用 dpi 控制文字大小
         rgba: true,
       },
     })
-      .png()  // 明确输出 PNG 格式
+      .png()  // 确保输出 PNG 格式
       .toBuffer();
 
     const namedImage = await sharp(titledImage)
