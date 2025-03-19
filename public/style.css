@@ -2,11 +2,11 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
     margin: 0;
-    padding: 0;
+    padding: 20px 0; /* 添加上下边距 */
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100vh;
+    align-items: flex-start; /* 从顶部开始 */
+    min-height: 100vh; /* 允许滚动 */
 }
 
 .container {
@@ -15,10 +15,14 @@ body {
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
+    max-width: 500px; /* 限制容器宽度 */
+    width: 100%; /* 响应式 */
+    box-sizing: border-box; /* 包含 padding */
 }
 
 #preview {
     margin-bottom: 20px;
+    max-width: 100%; /* 确保预览区域受限 */
 }
 
 #previewImage {
